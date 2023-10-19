@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora</title>
+</head>
+<body>
+    <h1>Calculadora</h1>
+    <p>Ingresa los coeficientes a, b y c para calcular las soluciones.</p>
+    
+    <label for="coeficienteA">Coeficiente a:</label>
+    <input type="number" id="coeficienteA">
+    
+    <label for="coeficienteB">Coeficiente b:</label>
+    <input type="number" id="coeficienteB">
+    
+    <label for="coeficienteC">Coeficiente c:</label>
+    <input type="number" id="coeficienteC">
+    
+    <button onclick="calcular()">Calcular</button>
+    
+    <p id="resultado"></p>
+
+
+
+
+
+
+    <script>
+        function calcular() {
+            //variables
+            var a = parseFloat(document.getElementById('coeficienteA').value);
+            var b = parseFloat(document.getElementById('coeficienteB').value);
+            var c = parseFloat(document.getElementById('coeficienteC').value);
+            var res = document.getElementById('resultado');
+            
+            if (a === 0) {
+                res.textContent = "a no puede ser 0";
+            } else if (!isNaN(a) && !isNaN(b) && !isNaN(c)) {
+                // Calcula el discriminante
+                var discriminante = b * b - 4 * a * c;
+                if (discriminante > 0) {
+                    // Dos soluciones reales
+                    var x1 = (-b + Math.sqrt(discriminante)) / (2 * a);
+                    var x2 = (-b - Math.sqrt(discriminante)) / (2 * a);
+                    res.textContent = 'Las soluciones son: x1 = ' + x1.toFixed(2) + ' y x2 = ' + x2.toFixed(2);
+                } else if (discriminante === 0) {
+                    // Una solución real (doble raíz)
+                    var x1 = -b / (2 * a);
+                    res.textContent = 'La solución doble es: x = ' + x1.toFixed(2);
+                } else {
+                    res.textContent = 'No hay soluciones reales.';
+                }
+            } else {
+                res.textContent = 'Por favor, ingresa coeficientes válidos.';
+            }
+        }
+    </script>
+</body>
+</html>

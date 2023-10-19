@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora de nomina</title>
+</head>
+<body>
+    <h1>Calculadora de nomina</h1>
+    <p>Ingresa el sueldo y la antigüedad del empleado para calcular su prima mensual.</p>
+    
+    <label for="sueldo">Sueldo del empleado (en euros):</label>
+    <input type="number" id="sueldo" placeholder="Ingresa el sueldo">
+    
+    <label for="antiguedad">Antigüedad del empleado (en años):</label>
+    <input type="number" id="antiguedad" placeholder="Ingresa la antigüedad">
+    
+    <button onclick="calcularPrima()">Calcular Prima</button>
+    
+    <p id="resultado"></p>
+
+
+
+
+
+
+    
+    <script>
+        function calcularPrima() {
+            //variables
+            var sueldo = parseFloat(document.getElementById('sueldo').value);
+            var antiguedad = parseInt(document.getElementById('antiguedad').value);
+            var res = document.getElementById('resultado');
+            
+            if (!isNaN(sueldo) && !isNaN(antiguedad)) {
+                var prima = 0;
+                
+                if (sueldo < 750 && antiguedad >= 10) {
+                    prima = sueldo * 0.10;
+                } else if (sueldo >= 750 && antiguedad >= 10) {
+                    prima = sueldo * 0.05;
+                }
+                
+                var sueldoTotal = sueldo + prima;
+                
+                res.textContent = 'La prima mensual es de ' + prima + ' euros. El sueldo total es de ' + sueldoTotal + ' euros.';
+            } else {
+                res.textContent = 'Por favor, ingresa valores válidos.';
+            }
+        }
+    </script>
+</body>
+</html>

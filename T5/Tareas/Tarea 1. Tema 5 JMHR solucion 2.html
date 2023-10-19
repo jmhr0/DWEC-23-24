@@ -1,0 +1,117 @@
+<script>
+  function introducirArray() {
+    let numeros = [];
+    let numero = prompt("Introduzca el número a añadir en el array");
+    while (numero !== "") {
+      numeros.push(parseFloat(numero));
+      numero = prompt("Introduzca otro número o deje en blanco para finalizar");
+    }
+    return numeros; // Devolvemos el array de números
+  }
+
+  function calcularMedia(numeros) {
+    if (numeros.length === 0) {
+      return 0;
+    }
+    let suma = 0;
+    for (let i = 0; i < numeros.length; i++) {
+      suma += numeros[i];
+    }
+    let res = suma / numeros.length;
+    return res.toFixed(2);
+  }
+
+  function calcularRango(numeros) {
+    if (numeros.length === 0) {
+      return 0;
+    }
+    let max = numeros[0];
+    let min = numeros[0];
+    for (let i = 0; i < numeros.length; i++) {
+      if (numeros[i] > max) {
+        max = numeros[i];
+      }
+      if (numeros[i] < min) {
+        min = numeros[i];
+      }
+    }
+    res = max - min;
+    return res;
+  }
+
+  function calcularModa(numeros) {
+    if (numeros.length === 0) {
+      return "No hay moda";
+    }
+
+    let moda = [];
+    let contadorMax = 0;
+
+    for (let i = 0; i < numeros.length; i++) {
+      let numero = numeros[i];
+      let contador = 0;
+      for (let j = 0; j < numeros.length; j++) {
+        if (numeros[j] === numero) {
+          contador++;
+        }
+      }
+      if (contador > contadorMax) {
+        contadorMax = contador;
+        moda = [numero];
+      } else {
+        moda.push(numero);
+      }
+    }
+
+    if (contadorMax === 1) {
+      return "No hay moda";
+    } else if (moda.length === 1) {
+      return `La moda es: ${moda[0]}`;
+    } else if (moda.length === 2 && moda[0] === moda[1] - 1) {
+      let mediaModa = (moda[0] + moda[1]) / 2;
+      return `Hay dos modas adyacentes, la media es: ${mediaModa}`;
+    } else {
+      return `Hay dos modas no adyacentes: ${moda.join(", ")}`;
+    }
+  }
+
+  function mostrarMenu() {
+    let opcion;
+    let numeros = [];
+    do {
+      opcion = prompt(
+        "Elija una opción:\n\n1 : Introducir Array\n2 : Calcular Media\n3 : Calcular Rango\n4 : Calcular Moda\n5 : Finalizar programa"
+      );
+
+      switch (opcion) {
+        case "1":
+          numeros = introducirArray();
+          break;
+
+        case "2":
+          media = calcularMedia(numeros);
+          alert(`La media es: ${media}`);
+          break;
+
+        case "3":
+          rango = calcularRango(numeros);
+          alert(`El rango es: ${rango}`);
+          break;
+
+        case "4":
+          moda = calcularModa(numeros);
+          alert(`La moda es: ${moda}`);
+          break;
+
+        case "5":
+          alert("Programa finalizado.");
+          break;
+
+        default:
+          alert("Opción no válida. Por favor, elija una opción válida.");
+      }
+    } while (opcion !== "5");
+  }
+
+  mostrarMenu();
+</script>

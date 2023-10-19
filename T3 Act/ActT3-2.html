@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Par o impar</title>
+</head>
+<body>
+    <h1>Determinar si un numero es par o impar</h1>
+    <p>Ingresa un numero y te diremos si es par o impar.</p>
+    
+    <input type="number" id="numero">
+    
+    <button onclick="determinarParOImpar()">Determinar</button>
+    
+    <p id="resultado"></p>
+
+
+
+
+
+
+    
+    <script>
+        function determinarParOImpar() {
+            var numero = parseInt(document.getElementById('numero').value);
+            var res = document.getElementById('resultado');
+            
+            if (!isNaN(numero)) {
+                //si el resultado de dicho numero es igual a 0 saldra por pantalla que es par
+                if (numero % 2 === 0) {
+                    res.textContent = 'El número ingresado es PAR.';
+                } else {
+                //bajo cualquier otra posibilidad (que el numero sea impar) saldra por pantalla que el numero es impar
+                    res.textContent = 'El número ingresado es IMPAR.';
+                }
+            } else {
+                res.textContent = 'Por favor, ingresa un número válido.';
+            }
+        }
+    </script>
+</body>
+</html>

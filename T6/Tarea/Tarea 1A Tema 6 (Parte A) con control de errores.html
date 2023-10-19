@@ -1,0 +1,56 @@
+<script>
+  function obtenerMatrizDeEntrada() {
+      let filas = prompt("Ingresa el número de filas:");
+      let columnas = prompt("Ingresa el número de columnas:");
+      let matriz = [];
+
+      if (isNaN(filas) || isNaN(columnas)) {
+          alert("Debes ingresar números válidos.");
+          return obtenerMatrizDeEntrada();
+      }
+
+      for (let i = 0; i < filas; i++) {
+          matriz[i] = [];
+          for (let j = 0; j < columnas; j++) {
+              let valor = prompt(`Ingresa el valor para la fila ${i + 1}, columna ${j + 1}:`);
+              
+              if (isNaN(valor)) {
+                  alert("Debes ingresar números válidos.");
+                  return obtenerMatrizDeEntrada();
+              }
+              matriz[i][j] = Number(valor);
+          }
+      }
+
+      return matriz;
+  }
+
+  function separarParesImpares(matriz) {
+      let arrayPares = [];
+      let arrayImpares = [];
+
+      for (let i = 0; i < matriz.length; i++) {
+          for (let j = 0; j < matriz[i].length; j++) {
+              if (matriz[i][j] % 2 === 0) {
+                  arrayPares.push(matriz[i][j]);
+              } else {
+                  arrayImpares.push(matriz[i][j]);
+              }
+          }
+      }
+
+      return [arrayPares, arrayImpares];
+  }
+
+  function mostrarMenu() {
+      let matriz = obtenerMatrizDeEntrada();
+      if (matriz === null) {
+          alert("Entrada de matriz cancelada.");
+          return;
+      }
+      let [numerosPares, numerosImpares] = separarParesImpares(matriz);
+      alert(`Matriz de Entrada:\n${matriz}  \nNúmeros Pares:\n${numerosPares}\nNúmeros Impares:\n${numerosImpares}`);
+  }
+
+  mostrarMenu();
+  </script>

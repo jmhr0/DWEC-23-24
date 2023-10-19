@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Descomposición en Factores Primos</title>
+</head>
+<body>
+    <h1>Descomposición en Factores Primos</h1>
+    <p>Ingresa un número y se calculara su descomposición en factores primos.</p>
+    
+    <label for="numero">Número:</label>
+    <input type="number" id="numero">
+    
+    <button onclick="descomponerEnFactoresPrimos()">Calcular</button>
+    
+    <p id="resultado"></p>
+
+
+
+
+
+
+
+
+    
+    <script>
+        function descomponerEnFactoresPrimos() {
+            //declaracion de variables
+            var numero = parseInt(document.getElementById('numero').value);
+            var res = document.getElementById('resultado');
+            var factoresPrimos = [];
+            
+            if (!isNaN(numero)) {
+                //si el numero es menor o igual que 1 este sera su factorial
+                if (numero <= 1) {
+                    res.textContent = 'La descomposición en factores primos de ' + numero + ' es ' + numero;
+                } else {
+                    var divisor = 2;
+
+                    while (numero > 1) {
+                        //en caso de que el numero sea mayor a uno lo divideremos entre 2, si este es igual
+                        //a 0 se añadira dicho numero, en caso de no ser 0 se aumentara en 1 el divisor
+                        if (numero % divisor === 0) {
+                            factoresPrimos.push(divisor);
+                            numero /= divisor;
+                        } else {
+                            divisor++;
+                        }
+                    }
+                    res.textContent = 'La descomposición en factores primos de ' + numero + ' es ' + factoresPrimos.join(' * ');
+                }
+            } else {
+                res.textContent = 'Por favor, ingresa un número válido.';
+            }
+        }
+    </script>
+</body>
+</html>

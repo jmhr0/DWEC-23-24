@@ -1,0 +1,33 @@
+<script>
+  function obtenerMatrizDeEntrada() {
+      let zonas = prompt("Ingresa el número de zonas:");
+      let temperaturasMonitorizadas = prompt("Ingresa el número de temperaturasMonitorizadas:");
+      let matriz = [];
+
+      if (isNaN(zonas) || isNaN(temperaturasMonitorizadas)) {
+          alert("Debes ingresar números válidos.");
+          return obtenerMatrizDeEntrada();
+      }
+
+      for (let i = 0; i < zonas; i++) {
+          matriz[i] = [];
+          for (let j = 0; j < temperaturasMonitorizadas; j++) {
+              let valor = prompt(`Ingresa el valor para la zona ${i + 1}, temperatura ${j + 1}:`);
+              
+              if (isNaN(valor)) {
+                  alert("Debes ingresar números válidos.");
+                  return obtenerMatrizDeEntrada();
+              }
+              matriz[i][j] = Number(valor);
+          }
+      }
+
+      return matriz;
+  }
+
+  function mostrarMenu() {
+    
+  }
+
+  mostrarMenu();
+  </script>

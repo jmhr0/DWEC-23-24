@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Comparar numeros</title>
+</head>
+<body>
+    <h1>Encontrar el numero mayor</h1>
+    <p>Ingresa dos números y se dira cual es el mayor</p>
+    
+    <input type="number" id="primerNumero">
+    <input type="number" id="segundoNumero">
+    
+    <button onclick="compararNumeros()">Encontrar el Número Más Grande</button>
+    
+    <p id="resultado"></p>
+
+
+
+
+
+
+
+
+    
+    <script>
+        function compararNumeros() {
+            //declaración de variables
+            var primerNumero = parseFloat(document.getElementById('primerNumero').value);
+            var segundoNumero = parseFloat(document.getElementById('segundoNumero').value);
+            var res = document.getElementById('resultado');
+            
+            if (!isNaN(primerNumero) && !isNaN(segundoNumero)) {
+                //si el primer numero es mayor saldra por pantalla que el primer numero es mas grande
+                if (primerNumero > segundoNumero) {
+                    res.textContent = 'El primer número es más grande';
+                //si el segundo numero es mayor saldra por pantalla que el primer numero es mas grande
+                } else if (primerNumero < segundoNumero) {
+                    res.textContent = 'El segundo número es más grande';
+                } else {
+                //bajo cualquier otra posibilidad (que ambos sean iguales) saldra por pantalla que ambos numeros son iguales
+                    res.textContent = 'Ambos números son iguales';
+                }
+            } else {
+                res.textContent = 'Por favor, ingresa numeros';
+            }
+        }
+    </script>
+</body>
+</html>

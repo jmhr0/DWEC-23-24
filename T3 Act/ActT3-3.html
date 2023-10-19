@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Numeros entre 10 y 100</title>
+</head>
+<body>
+    <h1>Numeros entre 10 y 100</h1>
+    <p>Ingresa tres numeros y verificaremos si todos son mayores que 10 y menores que 100.</p>
+    
+    <input type="number" id="numero1">
+    <input type="number" id="numero2">
+    <input type="number" id="numero3">
+    
+    <button onclick="verificarNumeros()">Verificar</button>
+    
+    <p id="resultado"></p>
+
+
+
+
+    
+    <script>
+        function verificarNumeros() {
+        //variables
+            var numero1 = parseInt(document.getElementById('numero1').value);
+            var numero2 = parseInt(document.getElementById('numero2').value);
+            var numero3 = parseInt(document.getElementById('numero3').value);
+            var res = document.getElementById('resultado');
+            
+            if (!isNaN(numero1) && !isNaN(numero2) && !isNaN(numero3)) {
+                //se verifican que todas las variables esten entre 10 y 100
+                if (numero1 > 10 && numero1 < 100 && numero2 > 10 && numero2 < 100 && numero3 > 10 && numero3 < 100) {
+                    res.textContent = 'Ok';
+                } else {
+                    res.textContent = 'No cumple';
+                }
+            } else {
+                res.textContent = 'Por favor, ingresa números válidos.';
+            }
+        }
+    </script>
+</body>
+</html>

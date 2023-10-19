@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Figuras Geométricas</title>
+</head>
+<body>
+
+<script>
+    // Funciones para calcular el volumen y el área de las figuras geométricas
+    function calcularVolumen(figura, medidas) {
+        let volumen = 0;
+
+        if (figura === "cubo") {
+            volumen = medidas[0] ** 3;
+        } else if (figura === "esfera") {
+            volumen = (4 / 3) * Math.PI * (medidas[0] ** 3);
+        } else if (figura === "cilindro") {
+            volumen = Math.PI * (medidas[0] ** 2) * medidas[1];
+        }
+
+        return volumen;
+    }
+
+    function calcularArea(figura, medidas) {
+        let area = 0;
+
+        if (figura === "cubo") {
+            area = 6 * (medidas[0] ** 2);
+        } else if (figura === "esfera") {
+            area = 4 * Math.PI * (medidas[0] ** 2);
+        } else if (figura === "cilindro") {
+            area = 2 * Math.PI * medidas[0] * (medidas[0] + medidas[1]);
+        }
+
+        return area;
+    }
+
+    // Función para mostrar el menú
+    function mostrarMenu() {
+        let figura = "";
+        let medidas = [];
+
+        function pedirFigura() {
+            figura = prompt("Elija una figura geométrica: cubo, esfera o cilindro");
+        }
+
+        function pedirMedidas() {
+            let medidasStr = prompt("Ingrese las medidas necesarias separadas por comas (por ejemplo, para el cubo: lado; para la esfera: radio; para el cilindro: radio, altura)");
+            medidas = medidasStr.split(",").map(Number);
+        }
+
+        let opcion;
+        do {
+            opcion = prompt("Elija una opción:\n\n1 : Solicitar figura geométrica\n2 : Ingresar medidas\n3 : Calcular volumen\n4 : Calcular área\n5 : Finalizar programa");
+
+            switch (opcion) {
+                case "1":
+                    pedirFigura();
+                    break;
+
+                case "2":
+                    pedirMedidas();
+                    break;
+
+                case "3":
+                    if (figura === "") {
+                        alert("Primero debe elegir una figura geométrica.");
+                    } else {
+                        alert(`El volumen de la ${figura} es: ${calcularVolumen(figura, medidas)}`);
+                    }
+                    break;
+
+                case "4":
+                    if (figura === "") {
+                        alert("Primero debe elegir una figura geométrica.");
+                    } else {
+                        alert(`El área de la ${figura} es: ${calcularArea(figura, medidas)}`);
+                    }
+                    break;
+
+                case "5":
+                    alert("Programa finalizado.");
+                    break;
+
+                default:
+                    alert("Opción no válida. Por favor, elija una opción válida.");
+            }
+        } while (opcion !== "5");
+    }
+
+    // Iniciar el programa mostrando el menú
+    mostrarMenu();
+</script>
+
+</body>
+</html>
