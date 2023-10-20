@@ -1,32 +1,66 @@
 <script>
-  function obtenerMatrizDeEntrada() {
-      let zonas = prompt("Ingresa el número de zonas:");
-      let temperaturasMonitorizadas = prompt("Ingresa el número de temperaturasMonitorizadas:");
-      let matriz = [];
+      function introducirValores() {
+        var matrizVacia = []; 
+        var filaActual = []; 
+        var numIntroducido = 0;
+        var countFilas = 0; 
 
-      if (isNaN(zonas) || isNaN(temperaturasMonitorizadas)) {
-          alert("Debes ingresar números válidos.");
-          return obtenerMatrizDeEntrada();
-      }
+        while (true) {
+          numIntroducido = prompt("Introduce valores. Filas actuales: " + countFilas + ": (N para nueva fila/ X para salir)");
 
-      for (let i = 0; i < zonas; i++) {
-          matriz[i] = [];
-          for (let j = 0; j < temperaturasMonitorizadas; j++) {
-              let valor = prompt(`Ingresa el valor para la zona ${i + 1}, temperatura ${j + 1}:`);
-              
-              if (isNaN(valor)) {
-                  alert("Debes ingresar números válidos.");
-                  return obtenerMatrizDeEntrada();
-              }
-              matriz[i][j] = Number(valor);
+          if (numIntroducido === "X" || numIntroducido === null || numIntroducido === 0) { 
+            if (filaActual.length > 0) {
+              matrizVacia.push(filaActual);
+            }
+            break;
+          } else if (numIntroducido === "N") { 
+
+            matrizVacia.push(filaActual);
+
+            filaActual = [];
+
+            countFilas++;
+          } else {
+
+            numIntroducido = Number(numIntroducido);
+            filaActual.push(numIntroducido);
           }
+        }
+
+        return matrizVacia;
       }
 
-      return matriz;
+  function calcularMedia(matriz) {
+  let mediasIndividuales = [];
+  let sumaTotal = 0;
+  let elementosTotales = 0;
+
+  for (let i = 0; i < matriz.length; i++) {
+    let sumaArray = 0;
+    for (let j = 0; j < matriz[i].length; j++) {
+      sumaArray += parseFloat(matriz[i][j]);
+      sumaTotal += parseFloat(matriz[i][j]);
+      elementosTotales++;
+    }
+    let mediaArray = sumaArray / matriz[i].length;
+    mediasIndividuales.push(mediaArray);
   }
+
+  let mediaGeneral = sumaTotal / elementosTotales;
+
+  return [mediasIndividuales, mediaGeneral];
+}
+
 
   function mostrarMenu() {
     
+    let matriz = introducirValores();
+    let [mediasIndividuales, mediaGeneral] = calcularMedia(matriz);
+
+    alert(`Matriz de Entrada:\n${matriz} \ 
+    Medias Individuales:\n${mediasIndividuales}\n
+    Media General:\n${mediaGeneral}`);
+
   }
 
   mostrarMenu();
