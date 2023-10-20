@@ -1,0 +1,50 @@
+<script>
+    function entrada() {
+      var matriz = []; 
+      var dependencia = []; 
+      var valorNuevo = 0;
+      var ContadorNumFila = 0; 
+
+      while (true) {
+        valorNuevo = prompt("Introduzca los valores del consumo de las tomas en la dependencia" + ContadorNumFila + ": (N para siguiente dependencia/ X para salir)");
+
+        if (valorNuevo === "X" || valorNuevo === null || valorNuevo === 0) { 
+          if (dependencia.length > 0) {
+            matriz.push(dependencia);
+          }
+          break;
+        } else if (valorNuevo === "N") { 
+
+          matriz.push(dependencia);
+
+          dependencia = [];
+
+          ContadorNumFila++;
+        } else {
+
+          valorNuevo = Number(valorNuevo);
+          dependencia.push(valorNuevo);
+        }
+      }
+
+      return matriz;
+    }
+    
+
+    function ValorMax(Matriz) {
+  let max = 0;
+  for (let i = 0; i < Matriz.length; i++) {
+    for (let j = 0; j < Matriz[i].length; j++) {
+      if (Matriz[i][j] > max) {
+        max = Matriz[i][j];
+      }
+    }
+  }
+  return max;
+}
+
+    function tercera(){
+
+    }
+    
+</script>
