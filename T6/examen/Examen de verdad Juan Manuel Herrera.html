@@ -1,56 +1,55 @@
+<html>
 <script>
-function entrada() {
-  var matriz = []; 
-  var dependencia = []; 
-  var valorNuevo = 0;
-  var ContadorNumFila = 1; 
+  function entrada() {
+    var matriz = [];
+    var dependencia = [];
+    var valorNuevo = 0;
+    var ContadorNumFila = 1;
 
-  while (true) {
-    valorNuevo = prompt("Introduzca los valores del consumo de las tomas en la dependencia " + ContadorNumFila + ": (G para siguiente dependencia / F para salir (Deben ser Mayusculas))");
+    while (true) {
+      valorNuevo = prompt(
+        "Introduzca los valores del consumo de las tomas en la dependencia " +
+          ContadorNumFila +
+          ": (G para siguiente dependencia / F para salir (Deben ser Mayusculas))"
+      );
 
-    if (valorNuevo === "F" || valorNuevo === null) { 
-      if (dependencia.length > 0) {
+      if (valorNuevo === "F" || valorNuevo === null) {
+        if (dependencia.length > 0) {
+          matriz.push(dependencia);
+        }
+        break;
+      } else if (valorNuevo === "G") {
         matriz.push(dependencia);
-      }
-      break;
-    } else if (valorNuevo === "G") { 
-      matriz.push(dependencia);
-      dependencia = [];
-      ContadorNumFila++;
-    } else {
-      valorNuevo = Number(valorNuevo);
-      if (isNaN(valorNuevo) || valorNuevo < 0) {
-        alert("Error: Debe ingresar un número mayor o igual a 0 o las letras 'G' o 'F'.");
+        dependencia = [];
+        ContadorNumFila++;
       } else {
-        dependencia.push(valorNuevo);
+        valorNuevo = Number(valorNuevo);
+        if (isNaN(valorNuevo) || valorNuevo < 0) {
+          alert(
+            "Error: Debe ingresar un número mayor o igual a 0 o las letras 'G' o 'F'."
+          );
+        } else {
+          dependencia.push(valorNuevo);
+        }
       }
     }
+    return matriz;
   }
-  return matriz;
-}
-
-    
-  
-
-
 
   function AlmacenarMax(matriz) {
     let maximos = [];
-    
+
     for (let i = 0; i < matriz.length; i++) {
       let maxToma = Math.max(...matriz[i]);
       maximos.push(maxToma);
     }
-    
+
     return maximos;
   }
 
-
-
-  
   function dependenciasLimite(matriz, limite) {
     let superanLimite = [];
-    
+
     for (let i = 0; i < matriz.length; i++) {
       for (let j = 0; j < matriz[i].length; j++) {
         if (matriz[i][j] > limite) {
@@ -59,25 +58,21 @@ function entrada() {
         }
       }
     }
-    
+
     return superanLimite;
   }
 
-
-  
   function mostrarMenu() {
     let matrizConsumos = entrada();
     let maximos = AlmacenarMax(matrizConsumos);
     let limite = 2;
     let dependenciasQueSuperan = dependenciasLimite(matrizConsumos, limite);
-    
+
     alert(`Consumos de todas las dependencias en orden: \n${matrizConsumos} \n
 Consumos Máximos por Dependencia:\n${maximos}\n
 Dependencias que superan ${limite} kWh en alguna toma:\n${dependenciasQueSuperan}`);
   }
-  
-
-
 
   mostrarMenu();
 </script>
+</html
