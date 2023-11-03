@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tarea3 apartado A</title>
+  </head>
+  <body></body>
+</html>
+
+<script>
+class Empleado {
+    #edad
+    constructor(nombre, apellido, edad) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.#edad = edad;
+        this.getEdad = function () {
+            return this.#edad;
+        };
+    }
+    
+
+    muestra() {
+        alert(`Nombre: ${this.nombre} ${this.apellido}\nEdad: ${this.getEdad()}`);
+    }
+}
+
+class Profesor extends Empleado {
+    constructor(nombre, apellido, edad, cargo) {
+        super(nombre, apellido, edad);
+        this.cargo = cargo;
+    }
+
+    muestraCargo() {
+        alert(`Cargo: ${this.cargo}`);
+    }
+}
+
+var profesor = new Profesor("Juan", "Manuel", 27, "Profesor de informatica");
+profesor.muestra();
+profesor.muestraCargo();
+
+
+
+</script>

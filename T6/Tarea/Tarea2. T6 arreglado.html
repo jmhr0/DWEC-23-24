@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea2. T6</title>
+</head>
+<body>
+    <script>
+// Función para introducir elementos en la cesta
+function introducirArticulo(cesta) {
+    let nombre = prompt("Introduzca el nombre del artículo");
+    let precio = parseFloat(prompt("Introduzca el precio del artículo"));
+
+    if (isNaN(precio)) {
+        alert("El precio debe ser un valor numérico.");
+        return;
+    }
+
+    let cantidad = parseInt(prompt("Introduzca la cantidad del artículo"));
+
+    if (isNaN(cantidad)) {
+        alert("La cantidad debe ser un valor numérico.");
+        return;
+    }
+    let siguienteCodigo = cesta.length + 1;
+
+    cesta.push({
+        codigo: siguienteCodigo,
+        nombre: nombre,
+        precio: precio,
+        cantidad: cantidad,
+    });
+}
+
+        
+          // Funcion para ver los articulos en la cesta
+          function verCesta(cesta) {
+            if (cesta.length === 0) {
+              alert("La cesta está vacía.");
+              return;
+            }
+        
+            let tabla = "Cod.\tNombre\tPrecio\tCantidad\tSubtotal\n";
+            let total = 0;
+        
+            for (let i = 0; i < cesta.length; i++) {
+              let articulo = cesta[i];
+              let subtotal = articulo.precio * articulo.cantidad;
+              total += subtotal;
+        
+              tabla += `${articulo.codigo}\t${articulo.nombre}\t${articulo.precio}\t${articulo.cantidad}\t${subtotal}\n`;
+            }
+        
+            tabla += `Total\t\t\t\t${total.toFixed(2)}`;
+            alert(tabla);
+          }
+        
+          // Funcion para borrar un solo articulo de la cesta
+          function borrarArticulo(cesta) {
+            let codigo = prompt("Introduzca el código del artículo a borrar");
+            for (let i = 0; i < cesta.length; i++) {
+              if (cesta[i].codigo === codigo) {
+                cesta.splice(i, 1);
+                alert("Artículo eliminado de la cesta.");
+                return;
+              }
+            }
+            alert("Artículo no encontrado en la cesta.");
+          }
+        
+          // Funcion para vaciar la cesta
+          function vaciarCesta(cesta) {
+            cesta.length = 0; // Igualar el length del array a 0 es una de las varias formas de vaciar un array
+            alert("La cesta ha sido vaciada.");
+          }
+        
+          // Contiene el resto de funciones en una sola para evitar variables globales
+          function mostrarMenu() {
+            let cesta = [];
+            let opcion;
+            let codigo = 1;
+        
+            do {
+              opcion = prompt("Menú:\n1. Ver cesta\n2. Insertar un artículo\n3. Borrar un artículo\n4. Vaciar cesta\n5. Salir\nIngrese su opción:");
+        
+              switch (opcion) {
+                case "1":
+                  verCesta(cesta);
+                  break;
+                case "2":
+                  introducirArticulo(cesta);
+                  break;
+                case "3":
+                  borrarArticulo(cesta);
+                  break;
+                case "4":
+                  vaciarCesta(cesta);
+                  break;
+                case "5":
+                  alert("Gracias por usar la aplicación.");
+                  break;
+                default:
+                  alert("Opción no válida. Inténtelo de nuevo.");
+              }
+            } while (opcion !== "5");
+          }
+        
+          //Inicia la funcion mostrarMenu al abrir la pagina
+          mostrarMenu();
+        </script>
+</body>
+</html>

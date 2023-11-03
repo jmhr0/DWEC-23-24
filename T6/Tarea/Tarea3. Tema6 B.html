@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea2. T6</title>
+</head>
+<body>
+    <script>
+        class articulo {
+            #codigo;
+            #nombre;
+            #precio;
+            #cantidad;
+
+            constructor(codigo, nombre, precio, cantidad) {
+                this.#codigo = codigo;
+                this.#nombre = nombre;
+                this.#precio = precio;
+                this.#cantidad = cantidad;
+            }
+
+            subtotal() {
+                return this.#precio * this.#cantidad;
+            }
+        }
+
+        class Cesta {
+            #cesta;
+            #codigo;
+            #nombre;
+            #precio;
+            #cantidad;
+
+            constructor() {
+                this.#cesta = [];
+            }
+
+            introducirArticulo() {
+                let nombre = prompt("Introduzca el nombre del artículo");
+                let precio = parseFloat(prompt("Introduzca el precio del artículo"));
+
+                if (isNaN(precio)) {
+                    alert("El precio debe ser un valor numérico.");
+                    return;
+                }
+
+                let cantidad = parseInt(prompt("Introduzca la cantidad del artículo"));
+
+                if (isNaN(cantidad)) {
+                    alert("La cantidad debe ser un valor numérico.");
+                    return;
+                }
+
+                let siguienteCodigo = this.#cesta.length + 1;
+                this.#cesta.push(new articulo(siguienteCodigo, nombre, precio, cantidad));
+            }
+
+            verCesta() {
+                if (this.#cesta.length === 0) {
+                    alert("La cesta está vacía.");
+                    return;
+                }
+
+                let tabla = "Cod.\tNombre\tPrecio\tCantidad\tSubtotal\n";
+                let total = 0;
+
+                for (let i = 0; i < this.#cesta.length; i++) {
+                    let articulo = this.#cesta[i];
+                    let subtotal = articulo.subtotal();
+                    total += subtotal;
+
+                    tabla += `${articulo.#codigo}\t${articulo.#nombre}\t${articulo.#precio}\t${articulo.#cantidad}\t${subtotal}\n`;
+                }
+
+                tabla += `Total\t\t\t\t${total.toFixed(2)}`;
+                alert(tabla);
+            }
+
+            borrarArticulo() {
+                let codigo = prompt("Introduzca el código del artículo a borrar");
+                for (let i = 0; i < this.#cesta.length; i++) {
+                    if (this.#cesta[i].#codigo === codigo) {
+                        this.#cesta.splice(i, 1);
+                        alert("Artículo eliminado de la cesta.");
+                        return;
+                    }
+                }
+                alert("Artículo no encontrado en la cesta.");
+            }
+
+            vaciarCesta() {
+                this.#cesta.length = 0;
+                alert("La cesta ha sido vaciada.");
+            }
+
+            mostrarMenu() {
+                let opcion;
+                do {
+                    opcion = prompt("Menú:\n1. Ver cesta\n2. Insertar un artículo\n3. Borrar un artículo\n4. Vaciar cesta\n5. Salir\nIngrese su opción:");
+
+                    switch (opcion) {
+                        case "1":
+                            this.verCesta();
+                            break;
+                        case "2":
+                            this.introducirArticulo();
+                            break;
+                        case "3":
+                            this.borrarArticulo();
+                            break;
+                        case "4":
+                            this.vaciarCesta();
+                            break;
+                        case "5":
+                            alert("Gracias por usar la aplicación.");
+                            break;
+                        default:
+                            alert("Opción no válida. Inténtelo de nuevo.");
+                    }
+                } while (opcion !== "5");
+            }
+        }
+        var cart = new Cesta();
+        cart.mostrarMenu();
+
+        </script>
+</body>
+</html>
