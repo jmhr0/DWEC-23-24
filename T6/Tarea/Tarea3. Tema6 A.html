@@ -20,7 +20,8 @@ class Empleado {
         };
     }
     
-
+    //el getter no es estrictamente necesario puesto que la subclase de empleado sera
+    //la que llame al metodo 'muestra' pero es una selección igual de valida
     muestra() {
         alert(`Nombre: ${this.nombre} ${this.apellido}\nEdad: ${this.getEdad()}`);
     }
