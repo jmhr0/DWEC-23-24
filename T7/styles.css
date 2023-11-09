@@ -1,0 +1,21 @@
+input:invalid {border: 1px solid red;}
+input:valid {border: 1px solid green;}
+
+.Container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+form {
+    background-color: rgb(238, 234, 234);
+}
+
+h1,h3 {
+    text-decoration: underline;
+    font-family: sans-serif;
+}
+
+section {
+    font-family: serif;
+}

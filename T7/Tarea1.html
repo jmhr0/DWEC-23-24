@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea1 T7</title>
+    <link rel="stylesheet" href="styles.css">
+
+
+
+</head>
+<h1>Solicitud de baja de Vehiculo</h1>
+<section class="Container">
+<body>
+    <form>
+        <section class="Datosvehiculo">
+            <h3>Datos del vehiculo</h3>
+        <section class="mb-3">
+          <label for="Matricula" class="form-label">Matricula:</label>
+          <input class="form-control" id="matriculainput" required>
+        </section>
+        <br>
+        <section class="mb-3">
+          <label for="Fechamatriculacion" class="form-label">Fecha matriculacion:</label>
+          <input class="form-control" type="date" placeholder="dd/mm/aaaa" required>
+        </section>
+        <br>
+        <section class="mb-3">
+          <label for="6ultimos dígitos(nº bastidor)" class="form-label">6 ultimos dígitos (nº bastidor)</label>
+          <input class="form-control" type="number" required>
+        </section>
+    </section>
+        <br>
+        <section class="datosTitular">
+            <h3>Datos del Titular</h3>
+        <section class="mb-3">
+          <label for="Nombre" class="form-label">Nombre:</label>
+          <input class="form-control" type="text" required>
+        </section>
+        <br>
+        <section class="mb-3">
+          <label for="Apellidos" class="form-label">Apellidos:</label>
+          <input class="form-control" type="text" required>
+        </section>
+        <br>
+        <section class="mb-3">
+          <label for="Domicilio" class="form-label">Domicilio:</label>
+          <input class="form-control" required>
+        </section>
+        <br>
+        <section class="mb-3">
+            <label for="DNI" class="form-label" id="dniLabel">DNI:</label>
+            <input class="form-control" id="dniInput" required>
+        </section>
+        <br>
+        <section class="mb-3">
+          <label for="Correoelectronico" class="form-label">Correo electronico:</label>
+          <input class="form-control" type="email" required>
+        </section>
+        <br>
+        <section class="mb-3">
+          <label for="Tlf" class="form-label">Tlf:</label>
+          <input class="form-control" type="number" max="9" required>
+        </section>
+        <br>
+        <section class="tipoBaja">Tipo de baja:
+        <section class="form-check" required>
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Temporal
+            </label>
+          </section>
+        <section class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+            <label class="form-check-label" for="flexRadioDefault1">
+              Definitiva
+            </label>
+          </section>
+        </section>
+            <br>
+            <br>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </section>
+        </section>
+      </form>
+    </section>
+</section>
+</section>
+    </section>
+</body>
+</html>
+
+<script>
+    dniInput = document.getElementById('dniInput');
+    dniLabel = document.getElementById('dniLabel');
+
+    dniInput.addEventListener('focus', function () {
+        dniLabel.innerText = 'Editando DNI...';
+    });
+
+    dniInput.addEventListener('blur', function () {
+        dniLabel.innerText = 'DNI:';
+    });
+</script>
