@@ -5,6 +5,43 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea1 T7</title>
     <link rel="stylesheet" href="styles.css">
+    <script>
+      class bajaVehiculo {
+        constructor(){
+          
+        }
+          cambiaDNI() {
+              let dniInput = document.getElementById('dniInput');
+              let dniLabel = document.getElementById('dniLabel');
+  
+              dniInput.addEventListener('focus', function () {
+                  dniLabel.innerText = 'Editando DNI...';
+              });
+  
+              dniInput.addEventListener('blur', function () {
+                  dniLabel.innerText = 'DNI:';
+              });
+          }
+  
+          valida() {
+              let matriculaInput = document.getElementById('matriculaInput');
+  
+              matriculaInput.addEventListener('keyup', function () {
+                  if (matriculaInput.validity.typeMismatch) {
+                      matriculaInput.setCustomValidity("¡Correo erróneo!");
+                      matriculaInput.reportValidity();
+                  } else {
+                      matriculaInput.setCustomValidity("");
+                  }
+              });
+          }
+      }
+      var vehiculo = new Vehiculo();
+      window.onload = function () {
+          vehiculo.cambiaDNI();
+          vehiculo.valida();
+      };
+  </script>
 
 
 
@@ -12,12 +49,15 @@
 <h1>Solicitud de baja de Vehiculo</h1>
 <section class="Container">
 <body>
+
+  
+
     <form>
         <section class="Datosvehiculo">
             <h3>Datos del vehiculo</h3>
         <section class="mb-3">
           <label for="Matricula" class="form-label">Matricula:</label>
-          <input class="form-control" id="matriculainput" required>
+          <input class="form-control" id="matriculainput" pattern="^[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}" required>
         </section>
         <br>
         <section class="mb-3">
@@ -50,17 +90,17 @@
         <br>
         <section class="mb-3">
             <label for="DNI" class="form-label" id="dniLabel">DNI:</label>
-            <input class="form-control" id="dniInput" required>
+            <input type="text" id="id" name="dni" pattern="^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$" required><br><br>
         </section>
         <br>
         <section class="mb-3">
           <label for="Correoelectronico" class="form-label">Correo electronico:</label>
-          <input class="form-control" type="email" required>
+          <input class="form-control" type="matricula" required>
         </section>
         <br>
         <section class="mb-3">
           <label for="Tlf" class="form-label">Tlf:</label>
-          <input class="form-control" type="number" max="9" required>
+          <input class="form-control" type="number" required>
         </section>
         <br>
         <section class="tipoBaja">Tipo de baja:
@@ -89,16 +129,3 @@
     </section>
 </body>
 </html>
-
-<script>
-    dniInput = document.getElementById('dniInput');
-    dniLabel = document.getElementById('dniLabel');
-
-    dniInput.addEventListener('focus', function () {
-        dniLabel.innerText = 'Editando DNI...';
-    });
-
-    dniInput.addEventListener('blur', function () {
-        dniLabel.innerText = 'DNI:';
-    });
-</script>
