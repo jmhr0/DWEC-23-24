@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" >
+    <link 
+        rel="stylesheet" 
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" 
+    >
+    <style type="text/css">
+        input:invalid {border: 1px solid red; }
+        input:valid {border: 1px solid green;}   
+    </style>
+    <script async>
+        class Articulo {
+          constructor(cod, color, piel) {
+            this.id = Articulo.incrementId();
+            this.cod = cod;
+            this.color = color;
+            this.piel = piel;
+          }
+
+          static incrementId() {
+            if (!this.latestId) {
+              this.latestId = 1;
+            } else {
+              this.latestId++;
+            }
+            return this.latestId;
+          }
+        }
+
+        class Cartera extends Articulo {
+          constructor(cod, color, piel, bolsillo) {
+            super(cod, color, piel);
+            this.bolsillo = bolsillo;
+          }
+        }
+
+        class Base {
+          constructor() {
+            this.articulos = [];
+            this.fEvento();
+          }
+
+          fEvento() {
+            const formulario = document.getElementById('f1');
+            formulario.addEventListener('submit', function(event) {
+              event.preventDefault();
+              base.alta(); // Aquí usamos 'base' en lugar de 'this'
+            });
+          }
+
+          alta() {
+            const cod = document.getElementById('cod').value;
+            const color = document.getElementById('color').value;
+            const piel = document.getElementById('piel').value;
+            const bolsillo = document.getElementById('bolsillo').value;
+
+            const nuevaCartera = new Cartera(cod, color, piel, bolsillo);
+            this.articulos.push(nuevaCartera);
+
+            this.mostrarTabla();
+          }
+
+          mostrarTabla() {
+            const tabla = document.getElementById('carteras');
+            tabla.innerHTML = '';
+
+            this.articulos.forEach(function (articulo) {
+              const fila = tabla.insertRow();
+              fila.insertCell(0).textContent = articulo.id;
+              fila.insertCell(1).textContent = articulo.cod;
+              fila.insertCell(2).textContent = articulo.color;
+              fila.insertCell(3).textContent = articulo.piel;
+              fila.insertCell(4).textContent = articulo.bolsillo;
+            });
+          }
+        }
+
+        // Instancia de la clase Base
+        const base = new Base();
+    </script>
+</head>
+<body>    
+    <div class="container">
+        <div class="row" >       
+            <h2>Alta de artículos: Carteras </h2>
+            <br><br><br>
+        </div>  
+        <form id="f1">       
+            <div  >
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label >Cod:
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="cod"  
+                                placeholder="5 dígitos + A"  
+                                pattern="^[0-9]{5}[A]$" 
+                                name="cod" 
+                                required>
+                            </label> 
+
+                    </div> 
+                </div>      
+            </div>
+
+            <div >   
+                <div class="col-md-3">
+                        <div class="form-group">
+                                <label>Color:
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="color"  
+                                        name="color"   
+                                        required>
+                                </label>
+                        </div> 
+                </div> 
+            </div>
+            <div >   
+                <div class="col-md-3">
+                        <div class="form-group">
+                                <label>Piel:
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="piel"  
+                                        name="piel"   
+                                        required>
+                                </label>
+                        </div> 
+                </div> 
+            </div>
+            <div >   
+                <div class="col-md-3">
+                        <div class="form-group">
+                                <label>Bolsillo:
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        id="bolsillo"  
+                                        name="bolsillo" 
+                                        placeholder="SI/NO"   
+                                        required>
+                                </label>
+                        </div> 
+                </div> 
+            </div>
+            
+            <br>
+            <button 
+                id="bot" 
+                type="submit" 
+                class="btn btn-primary">
+                Dar de alta
+            </button>     
+        </form>
+        <br><br><br>
+        <div class="row" >         
+            <h3>Stock carteras </h2>
+                <table  class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Cod.</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Piel</th>
+                        <th scope="col">Bolsillo</th>
+                        </tr>
+                    </thead>
+                    <!-- Cuerpo donde añadir registros de carteras -->
+                    <tbody id="carteras"></tbody>
+                </table>
+        </div>
+    
+    </div>  
+</body>
+</html>

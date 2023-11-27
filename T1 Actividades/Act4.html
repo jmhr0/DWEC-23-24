@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operadores</title>
+</head>
+<body>
+    <script>
+        // Solicita dos números y muestra su suma
+        let num1 = prompt("Ingresa el primer número:");
+        let num2 = prompt("Ingresa el segundo número:");
+        let suma = parseFloat(num1) + parseFloat(num2);
+        alert("Suma: " + suma);
+
+        // Solicita la velocidad en km/h y la muestra en m/s
+        let velocidadKmPorHora = prompt("Ingresa la velocidad en km/h:");
+        let velocidadMs = velocidadKmPorHora * (1000 / 3600);
+        alert("Velocidad en m/s: " + velocidadMs);
+    </script>
+</body>
+</html>

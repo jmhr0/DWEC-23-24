@@ -1,0 +1,58 @@
+@import url("https://fonts.googleapis.com/css2?family=Lato&display=swap");
+
+* {
+    font-family: "Lato", sans-serif;
+  }
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+
+.header {
+  height: 50px;
+  background-color: #ef5350;
+  color: #fff;
+  text-align: center;
+}
+
+.header img {
+  width: 50px;
+  display: flex;
+  position: absolute;
+  left: 40px;
+  top: 0px;
+}
+
+.zonaNav {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  position: relative;
+}
+
+.zonaNav a {
+  padding: 17px;
+
+  position: relative;
+  top: 13px;
+  right: 385px;
+
+  color: #fff;
+
+  font-size: 15px;
+  text-decoration: none;
+
+  height: 50px;
+
+  align-items: center;
+
+  font-family: "Lato", sans-serif;
+}
+
+.zonaNav a:hover {
+  background-color: #E94141;
+}

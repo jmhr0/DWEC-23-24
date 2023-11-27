@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" >
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style type="text/css">
+        input:invalid {border: 1px solid red; }
+        input:valid {border: 1px solid green;}   
+    </style>
+</head>
+<body>    
+    <div class="container">
+        <div class="row" >       
+            <h2>Alta de artículos: Carteras </h2>
+            <br><br><br>
+        </div>  
+        <form id="f1">       
+            <div  >
+                <div class="col-md-3">
+                    <div class="form-group">
+                            <label >Cod:
+                            <input 
+                                type="text" 
+                                class="form-control" 
+                                id="cod"  
+                                placeholder="5 dígitos + A"  
+                                pattern="^[0-9]{5}[A]$" 
+                                name="cod" 
+                                required>
+                            </label> 
+
+                    </div> 
+                </div>      
+            </div>
+
+            <div >   
+                <div class="col-md-3">
+                        <div class="form-group">
+                                <label>Color:
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="color"  
+                                        name="color"   
+                                        required>
+                                </label>
+                        </div> 
+                </div> 
+            </div>
+            <div >   
+                <div class="col-md-3">
+                        <div class="form-group">
+                                <label>Piel:
+                                    <input 
+                                        type="text" 
+                                        class="form-control" 
+                                        id="piel"  
+                                        name="piel"   
+                                        required>
+                                </label>
+                        </div> 
+                </div> 
+            </div>
+            <div >   
+                <div class="col-md-3">
+                        <div class="form-group">
+                                <label>Bolsillo:
+                                    <input 
+                                        type="text" 
+                                        class="form-control"  
+                                        id="bolsillo"  
+                                        name="bolsillo" 
+                                        placeholder="SI/NO"   
+                                        required>
+                                </label>
+                        </div> 
+                </div> 
+            </div>
+            
+            <br>
+            <button 
+                id="bot" 
+                type="submit" 
+                class="btn btn-primary">
+                Dar de alta
+            </button>     
+        </form>
+        <br><br><br>
+        <div class="row" >         
+            <h3>Stock carteras </h2>
+                <table  class="table table-striped">
+                    <thead>
+                        <tr>
+                        <th scope="col">ID</th>
+                        <th scope="col">Cod.</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Piel</th>
+                        <th scope="col">Bolsillo</th>
+                        </tr>
+                    </thead>
+                    <!-- Cuerpo donde añadir registros de carteras -->
+                    <tbody id="carteras"></tbody>
+                </table>
+        </div>
+    
+    </div>  
+</body>
+<script async>
+
+    class Articulo {
+        constructor(cod, color, piel) {
+            this.id = ++Articulo.contador;
+            this.cod = cod;
+            this.color = color;
+            this.piel = piel;
+        }
+    }
+    Articulo.contador = 0;
+
+    class Cartera extends Articulo {
+        constructor(cod, color, piel, bolsillo) {
+            super(cod, color, piel);
+            this.bolsillo = bolsillo;
+        }
+    }
+
+    class Base {
+        #articulos=[]
+        constructor() {
+            this.#articulos = [];
+            this.#fEvento();
+        }
+
+        #fEvento() {
+            const form = document.getElementById('f1');
+            form.addEventListener('submit', (event) => {
+                event.preventDefault();
+                this.#alta();
+            });
+        }
+
+        #alta() {
+            const cod = document.getElementById('cod').value;
+            const color = document.getElementById('color').value;
+            const piel = document.getElementById('piel').value;
+            const bolsillo = document.getElementById('bolsillo').value;
+
+            const cartera = new Cartera(cod, color, piel, bolsillo);
+            this.#articulos.push(cartera);
+
+            document.getElementById('f1').reset();
+
+            const tbody = document.getElementById('carteras');
+            tbody.innerHTML = '';
+
+            this.#articulos.forEach((cartera) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${cartera.id}</td>
+                    <td>${cartera.cod}</td>
+                    <td>${cartera.co2lor}</td>
+                    <td>${cartera.piel}</td>
+                    <td>${cartera.bolsillo}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+    }
+
+    const base = new Base();
+
+</script>
+</html>

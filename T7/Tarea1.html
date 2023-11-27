@@ -1,154 +1,131 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tarea1 T7</title>
     <link rel="stylesheet" href="styles.css">
     <script>
-      class BajaVehiculo { 
-       #validaMatricula() {
-         var matr = document.getElementById("matriculainput");
-         if (matr.validity.patternMismatch) {
-           matr.setCustomValidity("Introduzca un formato de matricula valido");
-         } else {
-           matr.setCustomValidity("");
-         }
-       }
+        class BajaVehiculo {
+            #customValidityMatricula() {
+                var matr = document.getElementById("matriculainput");
+                if (matr.validity.patternMismatch) {
+                    matr.setCustomValidity("La matricula consiste de 4 numeros y 3 letras en mayuscula");
+                } else {
+                    matr.setCustomValidity("");
+                }
+            }
 
-       #validaDNI(){
-         var dniValid = document.getElementById("id");
-         if (dniValid.validity.patternMismatch){
-           dniValid.setCustomValidity("Introduzca un formato de DNI valido");
-         } else {
-           dniValid.setCustomValidity("");
-         }
-       }
-       
-       // Metodo 
-       #comprobarDNI() {
-         var labelOrigin = document.getElementById("dniLabel");
-         var inputOrigin = document.getElementById("id");
-   
-         inputOrigin.addEventListener('focus', () => {
-           labelOrigin.textContent = "Editando DNI...";
-         });
-   
-         inputOrigin.addEventListener('blur', () => {
-           labelOrigin.textContent = "DNI:";
-         });
-       }
-       #modificaDNI() {
-         var mod = document.getElementById("dniLabel").textContent = "Editando DNI....";
-       }
-   
-       #dniOriginal() {
-         var dni = document.getElementById("dniLabel").textContent = "DNI:";
-       }
-   
-       losEventos() {
-         var matr = document.getElementById("matriculainput");
-         matr.addEventListener("keyup", this.#validaMatricula.bind(this));
-   
-         var dni = document.getElementById("id");
-         dni.addEventListener("focus", this.#modificaDNI.bind(this));
-         dni.addEventListener("blur", this.#dniOriginal.bind(this));
+            #customValidityDNI() {
+                var dniValid = document.getElementById("id");
+                if (dniValid.validity.patternMismatch) {
+                    dniValid.setCustomValidity("El DNI consiste de 8 numeros y 1 letra mayuscula");
+                } else {
+                    dniValid.setCustomValidity("");
+                }
+            }
+            #modificaDNI() {
+                var mod = document.getElementById("dniLabel").textContent = "Editando DNI....";
+            }
 
-         var dniValid = document.getElementById("id");
-         dniValid.addEventListener("keyup",this.#validaDNI.bind(this));
-       }
-     }
-   
-     // Instancia la clase BajaVehiculo
-     var eventos = new BajaVehiculo();
-     window.onload = function(){
-       eventos.losEventos()
-     };
- </script>
+            #dniOriginal() {
+                var dni = document.getElementById("dniLabel").textContent = "DNI:";
+            }
 
+            lanzadorDeEventos() {
+                var matr = document.getElementById("matriculainput");
+                matr.addEventListener("keyup", this.#customValidityMatricula.bind(this));
 
+                var dni = document.getElementById("id");
+                dni.addEventListener("focus", this.#modificaDNI.bind(this));
+                dni.addEventListener("blur", this.#dniOriginal.bind(this));
 
+                var dniValid = document.getElementById("id");
+                dniValid.addEventListener("keyup", this.#customValidityDNI.bind(this));
+            }
+        }
+        window.onload = function () {
+          var lanzador = new BajaVehiculo();
+            lanzador.lanzadorDeEventos()
+        };
+    </script>
 </head>
-<h1>Solicitud de baja de Vehiculo</h1>
-<section class="Container">
+
 <body>
-
-  
-
-    <form>
-        <section class="Datosvehiculo">
-            <h3>Datos del vehiculo</h3>
-        <section class="mb-3">
-          <label for="Matricula" class="form-label">Matricula:</label>
-          <input class="form-control" id="matriculainput" pattern="^[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}" required>
-        </section>
-        <br>
-        <section class="mb-3">
-          <label for="Fechamatriculacion" class="form-label">Fecha matriculacion:</label>
-          <input class="form-control" type="date" placeholder="dd/mm/aaaa" required>
-        </section>
-        <br>
-        <section class="mb-3">
-          <label for="6ultimos dígitos(nº bastidor)" class="form-label">6 ultimos dígitos (nº bastidor)</label>
-          <input class="form-control" type="number" required>
-        </section>
-    </section>
-        <br>
-        <section class="datosTitular">
-            <h3>Datos del Titular</h3>
-        <section class="mb-3">
-          <label for="Nombre" class="form-label">Nombre:</label>
-          <input class="form-control" type="text" required>
-        </section>
-        <br>
-        <section class="mb-3">
-          <label for="Apellidos" class="form-label">Apellidos:</label>
-          <input class="form-control" type="text" required>
-        </section>
-        <br>
-        <section class="mb-3">
-          <label for="Domicilio" class="form-label">Domicilio:</label>
-          <input class="form-control" required>
-        </section>
-        <br>
-        <section class="mb-3">
-            <label for="DNI" class="form-label" id="dniLabel">DNI:</label>
-            <input type="text" id="id" name="dni" pattern="^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$" required><br><br>
-        </section>
-        <br>
-        <section class="mb-3">
-          <label for="Correoelectronico" class="form-label">Correo electronico:</label>
-          <input class="form-control" type="matricula" required>
-        </section>
-        <br>
-        <section class="mb-3">
-          <label for="Tlf" class="form-label">Tlf:</label>
-          <input class="form-control" type="number" required>
-        </section>
-        <br>
-        <section class="tipoBaja">Tipo de baja:
-        <section class="form-check" required>
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              Temporal
-            </label>
-          </section>
-        <section class="form-check">
-            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-            <label class="form-check-label" for="flexRadioDefault1">
-              Definitiva
-            </label>
-          </section>
-        </section>
+    <h1>Solicitud de baja de Vehiculo</h1>
+    <section class="Container">
+        <form method="GET">
+            <section class="Datosvehiculo">
+                <h3>Datos del vehiculo</h3>
+                <section class="mb-3">
+                    <label for="Matricula" class="form-label">Matricula:</label>
+                    <input class="form-control" id="matriculainput" name="matricula" pattern="^[0-9]{1,4}(?!.*(LL|CH))[BCDFGHJKLMNPRSTVWXYZ]{3}" required>
+                </section>
+                <br>
+                <section class="mb-3">
+                    <label for="Fechamatriculacion" class="form-label">Fecha matriculacion:</label>
+                    <input class="form-control" type="date" name="fechaMatriculacion" placeholder="dd/mm/aaaa" required>
+                </section>
+                <br>
+                <section class="mb-3">
+                    <label for="6ultimos dígitos(nº bastidor)" class="form-label">6 ultimos dígitos (nº bastidor)</label>
+                    <input class="form-control" type="number" name="numBastidor" required>
+                </section>
+            </section>
             <br>
-            <br>
-            <button type="submit" class="btn btn-primary">Submit</button>
-          </section>
-        </section>
-      </form>
+            <section class="datosTitular">
+                <h3>Datos del Titular</h3>
+                <section class="mb-3">
+                    <label for="Nombre" class="form-label">Nombre:</label>
+                    <input class="form-control" name="nombre" type="text" required>
+                </section>
+                <br>
+                <section class="mb-3">
+                    <label for="Apellidos" class="form-label">Apellidos:</label>
+                    <input class="form-control" name="apellidos" type="text" required>
+                </section>
+                <br>
+                <section class="mb-3">
+                    <label for="Domicilio" class="form-label">Domicilio:</label>
+                    <input class="form-control" name="domicilio" required>
+                </section>
+                <br>
+                <section class="mb-3">
+                    <label for="DNI" class="form-label" id="dniLabel">DNI:</label>
+                    <input type="text" id="id" name="dni" pattern="^[0-9]{8}[TRWAGMYFPDXBNJZSQVHLCKET]$" required><br><br>
+                </section>
+                <section class="mb-3">
+                    <label for="Correoelectronico" class="form-label">Correo electronico:</label>
+                    <input class="form-control" name="matricula" type="matricula" required>
+                </section>
+                <br>
+                <section class="mb-3">
+                    <label for="Tlf" class="form-label">Numero de telefono</label>
+                    <input class="form-control" name="numTelefono" type="number" required>
+                </section>
+                <br>
+                <section class="tipoBaja">Tipo de baja:
+                    <section class="form-check" required>
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked required>
+                        <label class="form-check-label" for="flexRadioDefault1" name="baja">
+                            Temporal
+                        </label>
+                    </section>
+                    <section class="form-check">
+                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" required>
+                        <label class="form-check-label" for="flexRadioDefault1" name="baja">
+                            Definitiva
+                        </label>
+                    </section>
+                </section>
+                <br>
+                <br>
+                <button type="submit" class="btn btn-primary">Enviar</button>
+            </section>
+        </form>
     </section>
-</section>
-</section>
     </section>
 </body>
+
 </html>
