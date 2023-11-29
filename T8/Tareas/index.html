@@ -64,6 +64,8 @@
             return total + iva;
           };
 
+          
+
           this.actualizarInterfaz = function () {
             var cestaBody = document.getElementById("cesta-body");
             var totalSpan = document.getElementById("total");
@@ -155,39 +157,58 @@
             15.99,
             "https://loremflickr.com/500/500/jacket"
           ),
+          new Producto(
+            "008",
+            "barco",
+            15.99,
+            "https://loremflickr.com/500/500/boat"
+          ),
+          new Producto(
+            "009",
+            "coche",
+            15.99,
+            "https://loremflickr.com/500/500/car"
+          ),
         ];
 
         // Generar los botones de productos dinámicamente
         var productosDiv = document.getElementById("productos");
         productosDisponibles.forEach(function (producto) {
-          var boton = document.createElement("button");
+  var contenedorProducto = document.createElement("div");
+  contenedorProducto.classList.add("producto");
 
-          // Agregar la imagen y el nombre al botón
-          boton.innerHTML =
-            '<img src="' +
-            producto.imagen +
-            '" alt="Imagen del producto" style="width: 50px; height: 50px;"> Añadir ' +
-            producto.nombre;
+  var imagen = document.createElement("img");
+  imagen.src = producto.imagen;
+  imagen.alt = "Imagen del producto";
+  imagen.style.width = "200px";
+  imagen.style.height = "200px";
 
-          boton.onclick = function () {
-            // Pedir al usuario la cantidad de unidades
-            var unidades = prompt("Ingrese la cantidad de unidades:");
-            // Verificacion
-            if (unidades !== null && !isNaN(unidades) && unidades > 0) {
-              agregarProductoAlCarrito(
-                producto.cod,
-                producto.nombre,
-                producto.precio,
-                producto.imagen,
-                parseInt(unidades)
-              );
-            } else {
-              alert("Ingrese una cantidad válida.");
-            }
-          };
+  var nombreProducto = document.createElement("p");
+  nombreProducto.textContent = producto.nombre;
 
-          productosDiv.appendChild(boton);
-        });
+  var boton = document.createElement("button");
+  boton.innerHTML = "Añadir";
+  boton.onclick = function () {
+    var unidades = prompt("Ingrese la cantidad de unidades:");
+    if (unidades !== null && !isNaN(unidades) && unidades > 0) {
+      agregarProductoAlCarrito(
+        producto.cod,
+        producto.nombre,
+        producto.precio,
+        producto.imagen,
+        parseInt(unidades)
+      );
+    } else {
+      alert("Ingrese una cantidad válida.");
+    }
+  };
+
+  contenedorProducto.appendChild(imagen);
+  contenedorProducto.appendChild(nombreProducto);
+  contenedorProducto.appendChild(boton);
+
+  productosDiv.appendChild(contenedorProducto);
+});
 
         // Definir la función eliminarProductoDelCarrito en el ámbito global
         window.eliminarProductoDelCarrito = function (cod) {
@@ -217,26 +238,23 @@
     </script>
   </head>
   <body>
-    <div class="container">
-      <nav class="header">
-        <a class="Zonalogo" title="Logo" href="/"><img src="img/5900c83716ae4b3fc58f4826.png" alt="logoTienda"></a>
+    <nav class="header">
+      <a class="Zonalogo" title="Duolingo" href="/"><img src="img/5900c83716ae4b3fc58f4826.png" alt="Duolingo"></a>
 
-        <section class ="zonaNav">
-            <section class="zonaHome">
-                <a href="">Home</a>
-            </section>
-            <section class="zonaAbout">
-                <a href="">About</a>
-            </section>
-
-        </section>
-    </nav>
-      </header>
+      <section class ="zonaNav">
+          <section class="zonaHome">
+              <a href="">Home</a>
+          </section>
+          <section class="zonaAbout">
+              <a href="">About</a>
+          </section>
+      </section>
+  </nav>
 
       <div class="row mt-4">
         <div class="col-md-8">
           <!-- Productos disponibles -->
-          <div id="productos">
+          <div class="row" id="productos">
             <!-- Generacion dinamica de botones de productos -->
           </div>
         </div>
