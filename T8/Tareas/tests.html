@@ -89,7 +89,20 @@
         class Carrito {
           constructor() {
             this.productos = [];
+            this.cargarDesdeLocalStorage();
           }
+
+        guardarEnLocalStorage() {
+        localStorage.setItem('carrito', JSON.stringify(this.productos));
+      }
+
+      cargarDesdeLocalStorage() {
+        var carritoGuardado = localStorage.getItem('carrito');
+        if (carritoGuardado) {
+          this.productos = JSON.parse(carritoGuardado);
+          this.actualizarInterfaz();
+        }
+      }
 
           agregarProducto(producto, unidades) {
             var productoExistente = this.productos.find(function (p) {
@@ -103,6 +116,7 @@
               this.productos.push(producto);
             }
 
+            this.guardarEnLocalStorage(); 
             this.actualizarInterfaz();
           }
 
@@ -111,6 +125,7 @@
               return producto.cod !== cod;
             });
             this.actualizarInterfaz();
+            this.guardarEnLocalStorage();
           }
 
           calcularSubtotal() {
@@ -125,7 +140,7 @@
 
           calcularTotalIVA() {
             var total = this.calcularSubtotal();
-            var iva = total * 0.21; // Suponiendo un 21% de IVA
+            var iva = total * 0.21;
             return total + iva;
           }
 
@@ -247,38 +262,41 @@
       </section>
   </nav>
 
-      <div class="row mt-4">
-        <div class="col-md-12">
-          <div class="d-flex flex-wrap" id="productos">
-            <!-- Aquí se añadirán dinámicamente los botones de productos -->
-          </div>
+  <div class="row mt-4">
+    <div class="col-md-8">
+      <div class="d-flex flex-wrap" id="productos">
+        <!-- Botones  -->
+      </div>
+    </div>
+    <div class="col-md-4">
+      <!-- Cesta de compras -->
+      <div class="cesta-container">
+        <h2>Cesta de Compras</h2>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Cod</th>
+              <th>Nombre</th>
+              <th>Unidades</th>
+              <th>Precio</th>
+              <th>Subtotal</th>
+              <th>Imagen</th>
+              <th></th> <!-- Columna para el botón de eliminación -->
+            </tr>
+          </thead>
+          <tbody id="cesta-body">
+            <!-- Filas de la cesta dinamicas -->
+          </tbody>
+        </table>
+        <div>
+          <p>Total: <span id="total"></span></p>
+          <p>Total + IVA: <span id="total-iva"></span></p>
         </div>
+      </div>
+    </div>
+  </div>
 
-        <div class="col-md-4">
-          <!-- Cesta de compras -->
-          <h2>Cesta de Compras</h2>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Cod</th>
-                <th>Nombre</th>
-                <th>Unidades</th>
-                <th>Precio</th>
-                <th>Subtotal</th>
-                <th>Imagen</th>
-                <th></th>
-                <!-- Columna para el botón de eliminación -->
-              </tr>
-            </thead>
-            <tbody id="cesta-body">
-              <!-- Aquí se añadirán dinámicamente las filas de la cesta -->
-            </tbody>
-          </table>
 
-          <div>
-            <p>Total: <span id="total"></span></p>
-            <p>Total + IVA: <span id="total-iva"></span></p>
-          </div>
         </div>
       </div>
     </div>

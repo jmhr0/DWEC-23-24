@@ -62,7 +62,7 @@ body {
   margin-bottom: 20px;
   text-align: center;
 
-  border: 1px solid grey;
+  border: 1px solid black;
 }
 
 .producto img {
@@ -71,5 +71,26 @@ body {
   margin-bottom: 10px;
   padding: 20px;
 
-  border-bottom: 3px solid grey;
+  border-bottom: 3px solid black;
+}
+
+.col-md-4{
+  left: 15px;
+  width: 35%;
+}
+
+.col-md-8 {
+  width: 65%;
+}
+
+.cesta-container {
+  margin-top: 20px; 
+}
+
+#productos {
+  margin-right: 20px;
+}
+
+#cesta-body {
+  max-height: 400px; /* Ajusta la altura máxima según sea necesario */
 }

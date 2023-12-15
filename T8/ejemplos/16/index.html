@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    // Para listar todos los títulos.
+var x = xmlDoc.getElementsByTagName('título');
+var txt="";
+for (i of x) {
+    txt += i.childNodes[0].nodeValue + "\n";
+}
+alert(txt);
+</script>
+<body>
+    
+</body>
+</html>
