@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        .centra {
+            border: 1px solid grey;
+            text-align: center;
+        }
+
+        .borde {
+            border: 1px solid grey;
+        }
+
+        td:hover {
+            background-color: aquamarine;
+        }
+    </style>
+
+</head>
+
+<body>
+    <script>
+
+        class Secc {
+            static id = 1;
+
+            constructor(tipo, nombre, costes) {
+                this.tipo = tipo;
+                this.nombre = nombre;
+                this.costes = costes;
+
+                if (tipo == 'modelo') {
+                    this.id = Secc.id++;
+                }
+            }
+
+            FilaCabecera() {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<th class="centra">ID</th><th class="centra">Nombre</th><th class="centra">Coste</th>`;
+                return fila;
+            }
+
+            FilaModelo() {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td class="centra">${this.id}</td><td class="centra"><b>${this.nombre}</b></td><td class="centra"></td>`;
+                return fila;
+            }
+
+            FilaCoste() {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td class="centra"></td><td class="borde">${this.nombre}</td><td class="centra">${this.costes}</td>`;
+                return fila;
+            }
+
+            FilaTotal() {
+                const fila = document.createElement('tr');
+                fila.innerHTML = `<td class="centra"></td><td class="centra">Total</td class="centra"><td class="centra">${this.costes.toFixed(2)}  €</td>`;
+                return fila;
+            }
+        }
+
+        class Tabla {
+            constructor(datos) {
+                this.datos = JSON.parse(datos);
+            }
+
+            renderizarTabla() {
+                const tabla = document.createElement('table');
+                document.body.appendChild(tabla);
+
+                const cabecera = new Secc('cabecera', 'Nombre', null);
+                const filaCabecera = cabecera.FilaCabecera();
+                tabla.appendChild(filaCabecera);
+
+                this.datos.forEach(modelo => {
+                    const instanciaSecc = new Secc('modelo', modelo.nombre, modelo.costes);
+                    const filaModelo = instanciaSecc.FilaModelo();
+                    tabla.appendChild(filaModelo);
+
+                    let totalProducto = 0;
+
+                    for (const [costeNombre, costeValor] of Object.entries(modelo.costes)) {
+                        const instanciaCoste = new Secc('coste', costeNombre, costeValor);
+                        const filaCoste = instanciaCoste.FilaCoste();
+                        tabla.appendChild(filaCoste);
+
+                        totalProducto += costeValor;
+                    }
+
+                    const instanciaTotalProducto = new Secc('total', null, totalProducto);
+                    const filaTotalProducto = instanciaTotalProducto.FilaTotal();
+                    tabla.appendChild(filaTotalProducto);
+                });
+            }
+        }
+
+        var bdDallo = `[{ "id": 1,
+                        "nombre": "cartera piel vacuno negra",
+                        "costes":{ "piel": 5,
+                                   "hilo": 0.80,
+                                   "rebaje": 1,
+                                   "pegamento": 0.50,
+                                   "pintura": 0.45,
+                                   "broches": 0.90,
+                                   "cosido": 1,
+                                   "fabricación": 15,
+                                   "embasado": 1}                
+                   },
+                   {    "id": 2,
+                        "nombre": "cartera piel vacuno azul",
+                        "costes":{ "piel": 6,
+                                   "hilo": 0.90,
+                                   "rebaje": 1.50,
+                                   "pegamento": 0.70,
+                                   "pintura": 0.50,
+                                   "broches": 0.80,
+                                   "cosido": 1.50,
+                                   "fabricación": 16,
+                                   "embasado": 1.20}                
+                   },
+                   {    "id": 3,
+                        "nombre": "cartera piel coco",
+                        "costes":{ "piel": 25,
+                                   "hilo": 1,
+                                   "rebaje": 1,
+                                   "pegamento": 0.70,
+                                   "pintura": 0.80,
+                                   "broches": 1,
+                                   "cosido": 3,
+                                   "fabricación": 20,
+                                   "embasado": 5}               
+                   }]`
+
+        const tablaProductos = new Tabla(bdDallo);
+        tablaProductos.renderizarTabla();
+
+    </script>
+</body>
+
+</html>

@@ -211,25 +211,35 @@
           nombreProducto.textContent = producto.nombre;
 
           var boton = document.createElement("button");
-          boton.innerHTML = "Añadir";
-          boton.onclick = function () {
-            var unidades = prompt("Ingrese la cantidad de unidades:");
-            if (unidades !== null && !isNaN(unidades) && unidades > 0) {
-              agregarProductoAlCarrito(
-                producto.cod,
-                producto.nombre,
-                producto.precio,
-                producto.imagen,
-                parseInt(unidades)
-              );
-            } else {
-              alert("Ingrese una cantidad válida.");
-            }
-          };
+boton.innerHTML = "Añadir";
 
-          contenedorProducto.appendChild(imagen);
-          contenedorProducto.appendChild(nombreProducto);
-          contenedorProducto.appendChild(boton);
+var inputCantidad = document.createElement("input");
+inputCantidad.type = "number";
+inputCantidad.min = "1";
+inputCantidad.value = "1";
+inputCantidad.style.width = "40px";
+inputCantidad.style.marginRight = "5px";
+
+boton.onclick = function () {
+  var unidades = inputCantidad.value;
+
+  if (unidades !== null && !isNaN(unidades) && unidades > 0) {
+    agregarProductoAlCarrito(
+      producto.cod,
+      producto.nombre,
+      producto.precio,
+      producto.imagen,
+      parseInt(unidades)
+    );
+  } else {
+    alert("Ingrese una cantidad válida.");
+  }
+};
+
+contenedorProducto.appendChild(imagen);
+contenedorProducto.appendChild(nombreProducto);
+contenedorProducto.appendChild(inputCantidad);
+contenedorProducto.appendChild(boton);
 
           productosDiv.appendChild(contenedorProducto);
         });
