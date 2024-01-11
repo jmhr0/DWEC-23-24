@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aplicación SPA</title>
+</head>
+<body>
+
+    <p>Seleccione un alumno:</p>
+
+    <select id="seleccionAlumno"></select>
+
+    <div id="detallesAlumno"></div>
+
+    <script>
+function cargarAlumnos() {
+   var solicitud = new XMLHttpRequest();
+   solicitud.onreadystatechange = function () {
+       if (this.readyState == 4 && this.status == 200) {
+           var seleccion = document.getElementById('seleccionAlumno');
+           seleccion.innerHTML = '';
+
+           var opcionDefault = document.createElement('option');
+           opcionDefault.textContent = 'Seleccione un alumno';
+           seleccion.appendChild(opcionDefault);
+
+           try {
+               var alumnos = JSON.parse(this.responseText);
+           } catch (e) {
+               console.error("Error al analizar JSON: ", e);
+           }
+
+           alumnos.forEach(function (alumno) {
+               var opcion = document.createElement('option');
+               opcion.value = alumno;
+               opcion.textContent = alumno;
+               seleccion.appendChild(opcion);
+           });
+
+           seleccion.addEventListener('change', function () {
+               cargarDetalles(this.value);
+           });
+
+           // Cargar detalles del primer alumno al seleccionar un alumno
+           if (alumnos.length > 0) {
+               cargarDetalles(alumnos[0]);
+           }
+       }
+   };
+   solicitud.open('GET', 'api.php?action=getNames', true);
+   solicitud.send();
+}
+
+function cargarDetalles(nombre) {
+    var solicitud = new XMLHttpRequest();
+    solicitud.onreadystatechange = function () {
+        if (solicitud.readyState == 4 && solicitud.status == 200) {
+            var detalles = JSON.parse(solicitud.responseText);
+            var detallesDiv = document.getElementById('detallesAlumno');
+            detallesDiv.innerHTML = '';
+
+            var tabla = '<table border="1"><tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Ciudad</th></tr>';
+            tabla += '<tr><td>' + detalles.id + '</td><td>' + detalles.nombre + '</td><td>' + detalles.apellidos + '</td><td>' + detalles.ciudad + '</td></tr>';
+            tabla += '</table>';
+
+            detallesDiv.innerHTML = tabla;
+        }
+    };
+    solicitud.open('GET', 'api.php?action=getNameDetails&name=' + nombre, true);
+    solicitud.send();
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    cargarAlumnos();
+});
+    </script>
+
+</body>
+</html>
