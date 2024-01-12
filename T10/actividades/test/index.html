@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title>Tema10T1 JMHR</title>
+    <script>
+        (function() {
+            var xhttpNombres = new XMLHttpRequest();
+
+            function cargarNombres() {
+                xhttpNombres.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        var obj = JSON.parse(this.responseText);
+                        var select = document.getElementById("nombre");
+                        select.innerHTML = "<option  hidden value=''>-- Selecciona un nombre --</option>";
+                        obj.forEach(function(element) {
+                            var option = document.createElement("option");
+                            option.value = element.id;
+                            option.text = element.nombre;
+                            select.add(option);
+                        });
+                    }
+                }
+                xhttpNombres.open("GET", "obtener_nombres.php", true);
+                xhttpNombres.send();
+            }
+
+            function mostrarCampos() {
+                var id = document.getElementById("nombre").value;
+                if (id) {
+                    xhttpNombres.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            var obj = JSON.parse(this.responseText);
+                            var tabla = '<table border="1"><tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Ciudad</th></tr>';
+                            
+                            tabla += '<tr><td>' + obj.id + '</td><td>' + obj.nombre + '</td><td>' + obj.apellidos + '</td><td>' + obj.ciudad + '</td></tr>';
+
+                            tabla += '</table>';
+                            document.getElementById("tabla").innerHTML = tabla;
+                        }
+                    }
+                    xhttpNombres.open("GET", "obtener_datos.php?id=" + id, true);
+                    xhttpNombres.send();
+                } else {
+                    document.getElementById("tabla").innerHTML = '';
+                }
+            }
+
+            window.onload = function() {
+                cargarNombres();
+                document.getElementById("nombre").addEventListener("change", mostrarCampos);
+            };
+        })();
+    </script>
+</head>
+<body>
+    <h1>Aplicación de ejemplo</h1>
+    <label for="nombre">Selecciona un nombre:</label>
+    <select id="nombre"></select>
+    <div id="tabla"></div>
+</body>
+</html>
