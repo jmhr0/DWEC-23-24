@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    <title>Tema11T1 JMHR</title>
+    <script>
+        (function() {
+            async function cargarNombres() {
+                try {
+                    let respuesta = await fetch("obtener_nombres.php");
+                    let datos = await respuesta.json();
+
+                    let select = document.getElementById("nombre");
+                    select.innerHTML = "<option hidden value=''>-- Selecciona un nombre --</option>";
+
+                    datos.forEach(element => {
+                        let option = document.createElement("option");
+                        option.value = element.id;
+                        option.text = element.nombre;
+                        select.add(option);
+                    });
+                } catch (error) {
+                    console.error('Error al cargar nombres:', error);
+                }
+            }
+
+            async function mostrarCampos() {
+                let id = document.getElementById("nombre").value;
+
+                if (id) {
+                    try {
+                        let respuesta = await fetch(`obtener_datos.php?id=${id}`);
+                        let datos = await respuesta.json();
+
+                        let tabla = `<table border="1">
+                            <tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Ciudad</th></tr>
+                            <tr><td>${datos.id}</td><td>${datos.nombre}</td><td>${datos.apellidos}</td><td>${datos.ciudad}</td></tr>
+                            </table>`;
+
+                        document.getElementById("tabla").innerHTML = tabla;
+                    } catch (error) {
+                        console.error('Error al cargar datos:', error);
+                    }
+                } else {
+                    document.getElementById("tabla").innerHTML = '';
+                }
+            }
+
+            window.onload = function() {
+                cargarNombres();
+                document.getElementById("nombre").addEventListener("change", mostrarCampos);
+            };
+        })();
+    </script>
+</head>
+<body>
+    <h1>Aplicación de ejemplo</h1>
+    <label for="nombre">Selecciona un nombre:</label>
+    <select id="nombre"></select>
+    <div id="tabla"></div>
+</body>
+</html>
