@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width initial-scale=1.0" />
+    <title>Tema12T1 JMHR</title>
+    <!-- Inclusión de la biblioteca jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        // Función ejecutada cuando el documento haya cargado (onload pero con Jquery)
+        function cargarNombres() {
+          $.ajax({
+            // Llamada AJAX para obtener los nombres por GET
+            url: "obtener_nombres.php",
+            type: "GET",
+            dataType: "json",
+            success: function (datos) {
+              // Función ejecutada cuando la solicitud tiene éxito
+              let select = $("#nombre");
+              select.html(
+                "<option hidden value=''>-- Selecciona un nombre --</option>"
+              );
+
+              datos.forEach((element) => {
+                // Bucle para mostrar todos los nombres de la BBDD por  bucle
+                let option = $("<option></option>");
+                option.attr("value", element.id);
+                option.text(element.nombre);
+                select.append(option);
+              });
+            },
+            error: function (error) {
+              // Control de errores
+              console.error("Error al cargar nombres:", error);
+            },
+          });
+        }
+
+        function mostrarCampos() {
+          let id = $("#nombre").val();
+
+          if (id) {
+            $.ajax({
+              // Llamada AJAX para obtener los datos del nombre por GET
+              url: `obtener_datos.php?id=${id}`,
+              type: "GET",
+              dataType: "json",
+              success: function (datos) {
+                // Creacion de la tabla
+                let tabla = `<table border="1">
+               <tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Ciudad</th></tr>
+               <tr><td>${datos.id}</td><td>${datos.nombre}</td><td>${datos.apellidos}</td><td>${datos.ciudad}</td></tr>
+               </table>`;
+
+                $("#tabla").html(tabla);
+              },
+              error: function (error) {
+                // Control de errores
+                console.error("Error al cargar datos:", error);
+              },
+            });
+          } else {
+            $("#tabla").html("");
+          }
+        }
+
+        cargarNombres();
+        $("#nombre").change(mostrarCampos); // Controlador de eventos con Jquery
+      });
+    </script>
+  </head>
+
+  <body>
+    <h1>Aplicación de ejemplo</h1>
+    <label for="nombre">Selecciona un nombre:</label>
+    <select id="nombre"></select>
+    <div id="tabla"></div>
+  </body>
+</html>

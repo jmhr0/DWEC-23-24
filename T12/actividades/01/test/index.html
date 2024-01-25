@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tema12T1 JMHR</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        function cargarNombres() {
+          $.get("obtener_nombres.php", function (datos) {
+            let select = $("#nombre");
+            select.html(
+              "<option hidden value=''>-- Selecciona un nombre --</option>"
+            );
+
+            datos.forEach((element) => {
+              let option = $("<option></option>");
+              option.attr("value", element.id);
+              option.text(element.nombre);
+              select.append(option);
+            });
+          }).fail(function (error) {
+            console.error("Error al cargar nombres:", error);
+          });
+        }
+
+        function mostrarCampos() {
+          let id = $("#nombre").val();
+
+          if (id) {
+            $.get(`obtener_datos.php?id=${id}`, function (datos) {
+              let tabla = `<table border="1">
+               <tr><th>ID</th><th>Nombre</th><th>Apellidos</th><th>Ciudad</th></tr>
+               <tr><td>${datos.id}</td><td>${datos.nombre}</td><td>${datos.apellidos}</td><td>${datos.ciudad}</td></tr>
+               </table>`;
+
+              $("#tabla").html(tabla);
+            }).fail(function (error) {
+              console.error("Error al cargar datos:", error);
+            });
+          } else {
+            $("#tabla").html("");
+          }
+        }
+
+        cargarNombres();
+        $("#nombre").change(mostrarCampos);
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Aplicación de ejemplo</h1>
+    <label for="nombre">Selecciona un nombre:</label>
+    <select id="nombre"></select>
+    <div id="tabla"></div>
+  </body>
+</html>
+</head>
+<body>
+  
+</body>
+</html>
