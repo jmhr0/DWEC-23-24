@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      table,
+      th,
+      td {
+        border: 1px solid black;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        padding: 5px;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+      $(function () {
+        function funAjax(e) {
+          e.preventDefault(); // Para no abandonar la página al enviar formulario.
+
+          //--------- Con Promesas--------------------------------------------------------
+          /*
+        
+        // declaracion de las variables que usaremos
+    var equipo1 = $('#equipo1').val();
+    var equipo2 = $('#equipo2').val();
+        // creamos esta variable para no tener que estar comentado continuamente y no machacar variables
+    var datos = {
+    equipo1: equipo1,
+    equipo2: equipo2
+};
+        //llamada a los datos del php
+fetch('examen1_2eva_2024.php', {
+    //utilizamos el metodo post
+    method: 'POST',
+    //Convertimos los datos del php en string para prepararlo para JSON
+    body: JSON.stringify(datos)
+})
+.then(response => {
+    //Recibimos los datos de la respuesta
+    return response.json();
+})
+.then(data => {
+
+    //Modificamos los datos de la respuesta para ajustarlo a las necesidades del enunciado
+
+    // Calculo para rellenar correctamente las 2 tablas de manera igualitaria (las 2 tablas tienen el mismo numero de elementos) 
+    var promedioMax2Tablas = Math.max(data.equipo1.length, data.equipo2.length);
+    // Limpiar y regenerar tabla
+    let tabla = '';
+    // Bucle para insertar cada jugador respectivamente en su equipo 
+    for (let i = 0; i < promedioMax2Tablas; i++) {
+        // Variables que contienen los jugadores de cada equipo en la posición i,
+        // si las variables equipo 1 o 2 son undefined se asignara una cadena vacia en su posicion, este es el funcionamiento del operador ??
+        var jugadorEquipo1 = data.equipo1[i] ?? '';
+        var jugadorEquipo2 = data.equipo2[i] ?? '';
+        tabla += `<tr><td>${jugadorEquipo1}</td><td>${jugadorEquipo2}</td></tr>`;
+    }
+
+    $('#datos').html(tabla);
+})
+.catch(error => console.error('Error:', error)); 
+
+*/
+
+          //-------------------------------------------------------------------------------
+
+          // // -------Con jQuery----------------------------------------------------------
+          // declaracion de las variables que usaremos
+          var id1 = $("#equipo1").val();
+          var id2 = $("#equipo2").val();
+
+          // consulta por post mediante jquery
+          $.post(
+            "examen1_2eva_2024.php",
+            { equipo1: id1, equipo2: id2 },
+            function (data) {
+              //Convertimos los datos del JSON que extraemos del php
+              var equipos = JSON.parse(data);
+              //desglosamos las variables necesarias para rellenar la tabla correctamente
+              var equipo1 = equipos.equipo1;
+              var equipo2 = equipos.equipo2;
+
+              // Limpiar y regenerar tabla
+              $("#datos").empty();
+
+              // Calculo para rellenar correctamente las 2 tablas de manera igualitaria (las 2 tablas tienen el mismo numero de elementos)
+              var promedioMax2Tablas = Math.max(equipo1.length, equipo2.length);
+
+              // Bucle para insertar cada jugador respectivamente en su equipo
+              for (var i = 0; i < promedioMax2Tablas; i++) {
+                // Variables que contienen los jugadores de cada equipo en la posición i,
+                // si las variables equipo 1 o 2 son undefined se asignara una cadena vacia en su posicion, este es el funcionamiento del operador ??
+                var añadirJugadorEquipo1 = equipo1[i] ?? "";
+                var añadirJugadorEquipo2 = equipo2[i] ?? "";
+                $("#datos").append(
+                  "<tr><td>" +
+                    añadirJugadorEquipo1 +
+                    "</td><td>" +
+                    añadirJugadorEquipo2 +
+                    "</td></tr>"
+                );
+              }
+            }
+          );
+
+          //----------------------------------------------------------------------------
+        }
+        $("form").submit(funAjax);
+      });
+    </script>
+  </head>
+  <body>
+    <form>
+      <label>ID_Equipo1:</label
+      ><input type="number" min="1" id="equipo1" required="required" />
+      <label>ID_Equipo2:</label
+      ><input type="number" min="1" id="equipo2" required="required" />
+      <button type="submit">Enviar</button>
+    </form>
+    <br />
+
+    <table>
+      <thead>
+        <tr>
+          <th>Equipo1</th>
+          <th>Equipo2</th>
+        </tr>
+      </thead>
+      <tbody id="datos"></tbody>
+    </table>
+  </body>
+</html>
