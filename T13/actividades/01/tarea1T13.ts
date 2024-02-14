@@ -10,6 +10,11 @@ class GrupoBot implements Botones {
 
     constructor() {
         this.contador = 0;
+        // Evento para añadir botón
+$("#añadirBoton").on("click", () => grupoBot.add());
+
+// Evento para quitar botón
+$("#quitarBoton").on("click", () => grupoBot.rest());
     }
 
     // Método para añadir botones
@@ -39,9 +44,3 @@ class Boton {
 
 // Instancia de la clase principal
 const grupoBot = new GrupoBot();
-
-// Evento para añadir botón
-$("#añadirBoton").on("click", () => grupoBot.add());
-
-// Evento para quitar botón
-$("#quitarBoton").on("click", () => grupoBot.rest());
