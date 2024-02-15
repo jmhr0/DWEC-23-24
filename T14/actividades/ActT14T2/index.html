@@ -1,18 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Document</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de nuevos usuarios</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            peticionAjax();
+            
+            $('#btnAgregar').on('click', function() {
+                let nombre = $('#nombre').val();
+                let apellidos = $('#apellidos').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/agregar",
+                    data: { nombre: nombre, apellidos: apellidos },
+                    success: function(data) {
+                        peticionAjax(); // Refrescar la lista después de agregar un nuevo usuario
+                    }
+                });
+            });
+
+            function peticionAjax() {
+                $.ajax({
+                    type: "GET",
+                    url: "/datos",
+                    success: function(data) {
+                        $("#datosMongoDB").empty();
+                        data.forEach(persona => {
+                            $("#datosMongoDB").append(`<p>${persona.nombre}, ${persona.apellidos}</p>`);
+                        });
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 <body>
-  <form id="addForm">
-    <input type="text" id="nombre" placeholder="Nombre">
-    <input type="text" id="apellido" placeholder="Apellido">
-    <button type="submit">Añadir</button>
-  </form>
-
-  <ul id="docList"></ul>
-
-  <script src="main.js"></script>
+    <h1>Formulario de nuevos usuarios</h1>
+    <form id="usuarioForm" action="/agregar" method="post">
+        <label for="nombre">Nombre</label><br>
+        <input type="text" name="nombre" id="nombre" required><br>
+        <label for="apellidos">Apellidos</label><br>
+        <input type="text" name="apellidos" id="apellidos" required><br>
+        <button type="button" id="btnAgregar">Añadir</button>
+    </form>
+    
+    <div id="datosMongoDB"></div>
 </body>
 </html>
