@@ -33,13 +33,13 @@ router.get("/", (req, res) => {
 // Ruta POST para manejar solicitudes
 app.post("/datos", async (req, res) => {
   try {
-    // Verifica si el campo "nombre" no está vacío d
+    // Verifica si el campo "nombre" no está vacoi
     if (req.body.nombre !== "") {
       await conectarDbWrite(req.body);
       const datos = await conectarDbRead();
       res.json(datos);
     } else {
-      // Si el campo "nombre" está vacío, simplemente envía todos los datos existentes como respuesta JSON
+      // Si el campo "nombre" esta vacío, envia todos los datos existentes como respuesta JSON
       const datos = await conectarDbRead();
       res.json(datos);
     }
