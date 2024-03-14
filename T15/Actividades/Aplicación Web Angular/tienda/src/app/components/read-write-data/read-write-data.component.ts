@@ -7,6 +7,7 @@ import { AuthService } from '../../shared/services/auth.service';
   styleUrls: ['./read-write-data.component.scss']
 })
 export class ReadWriteDataComponent implements OnInit {
+  
   products:any;
   price:number=0;
   name:string='';

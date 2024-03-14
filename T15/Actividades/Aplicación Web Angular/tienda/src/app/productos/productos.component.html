@@ -1,0 +1,33 @@
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0">
+      <img class="brand-logo" src="assets/tron.jpg" alt="positronX.io Logo">
+    </a>
+    <mat-toolbar color="primary">
+      <button mat-button routerLink="/dashboard">Home</button>
+      <button mat-button routerLink="/productos">Productos</button>
+      <button mat-button routerLink="/contacto">Contacto</button>
+    </mat-toolbar>
+  </nav>
+  <main>
+  <div class="introduction-container">
+    <p class="nombre-form">Name:</p>
+    <input type="string"  [(ngModel)]="name">
+    <p class="precio-form">Precio:</p>
+    <input type="number"  [(ngModel)]="price">
+    
+    <button (click)="write()">Add</button>
+  </div>
+    
+  <mat-grid-list cols="3" rowHeight="700px">
+    <mat-grid-tile *ngFor="let item of products">
+      <mat-card class="example-card">
+        <mat-card-header>
+          <div mat-card-avatar class="example-header-image"></div>
+          <mat-card-title>{{item.payload.doc.data().name}}</mat-card-title>
+          <mat-card-subtitle>Precio: {{item.payload.doc.data().price}}€</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="'https://loremflickr.com/520/340/random?random=' + item.payload.doc.id" alt="Foto de {{item.payload.doc.data().name}}">
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</main>

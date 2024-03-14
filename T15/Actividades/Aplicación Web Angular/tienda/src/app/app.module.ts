@@ -24,6 +24,21 @@ import { AuthService } from './shared/services/auth.service';
 import { ReadWriteDataComponent } from './components/read-write-data/read-write-data.component';
 import { FormsModule } from '@angular/forms';
 
+import {MatCardModule} from '@angular/material/card';
+
+import {MatGridListModule} from '@angular/material/grid-list';
+
+import {MatButtonModule} from '@angular/material/button';
+
+import { ReactiveFormsModule } from '@angular/forms';
+import { MatInputModule } from '@angular/material/input';
+
+import {MatFormFieldModule} from '@angular/material/form-field';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ProductosComponent } from './productos/productos.component';
+import { ContactoComponent } from './contacto/contacto.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +49,8 @@ import { FormsModule } from '@angular/forms';
     ForgotPasswordComponent,
     VerifyEmailComponent,
     ReadWriteDataComponent,
+    ProductosComponent,
+    ContactoComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +60,15 @@ import { FormsModule } from '@angular/forms';
     AngularFireStorageModule,
     AngularFireDatabaseModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCardModule,
+    MatGridListModule,
+    ReactiveFormsModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatToolbarModule
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

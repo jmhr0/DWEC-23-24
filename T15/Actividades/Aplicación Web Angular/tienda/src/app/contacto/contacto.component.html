@@ -1,0 +1,54 @@
+<nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+    <a class="navbar-brand col-sm-3 col-md-2 mr-0">
+      <img class="brand-logo" src="assets/tron.jpg" alt="positronX.io Logo">
+    </a>
+    <mat-toolbar color="primary">
+      <button mat-button routerLink="/dashboard">Home</button>
+      <button mat-button routerLink="/productos">Productos</button>
+      <button mat-button routerLink="/contacto">Contacto</button>
+    </mat-toolbar>
+  </nav>
+
+<form class="contact-form">
+    <mat-form-field style="width: 40em;" appearance="fill">
+      <mat-label>Empresa</mat-label>
+      <input matInput placeholder="Company">
+    </mat-form-field>
+  
+    <div class="row">
+      <mat-form-field style="width: 15em;" class="fill-width" appearance="fill">
+        <mat-label>Nombre</mat-label>
+        <input matInput placeholder="First Name">
+      </mat-form-field>
+  
+      <mat-form-field style="width: 15em;" class="half-width" appearance="fill">
+        <mat-label>Apellidos</mat-label>
+        <input matInput placeholder="Last Name">
+      </mat-form-field>
+    </div>
+  
+    <mat-form-field style="width: 15em;" appearance="fill">
+      <mat-label>Direccion</mat-label>
+      <input matInput placeholder="Address">
+    </mat-form-field>
+  
+    <div class="row">
+      <mat-form-field style="width: 10em;" class="third-width" appearance="fill">
+        <mat-label>Ciudad</mat-label>
+        <input matInput placeholder="City">
+      </mat-form-field>
+  
+      <mat-form-field style="width: 10em;" class="third-width" appearance="fill">
+        <mat-label>Provincia</mat-label>
+        <input matInput placeholder="State">
+      </mat-form-field>
+  
+      <mat-form-field style="width: 10em;" class="third-width" appearance="fill">
+        <mat-label>Codigo postal</mat-label>
+        <input matInput placeholder="Postal Code">
+      </mat-form-field>
+    </div>
+  
+    <button mat-raised-button color="primary" type="submit">Enviar</button>
+  </form>
+  
